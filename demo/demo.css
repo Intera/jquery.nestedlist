@@ -1,0 +1,37 @@
+/* example of extra properties that can be styled */
+.wrapper {
+	border: 1px solid #000;
+	width: 160px;
+	overflow: hidden;
+	float: left;
+}
+
+.wrapper + .wrapper {
+	margin-left: 10%;
+}
+
+.demo-list, ul {
+	width: 160px;
+	padding-left: 0;
+}
+
+.leaf {
+	background-color: #eee;
+}
+
+.hover {
+	text-decoration: underline;
+}
+
+li {
+	list-style-type: none;
+	width: 144px;
+}
+
+.nestedlist-up, li {
+	cursor: pointer;
+}
+
+.nestedlist-up:hover {
+	text-decoration: underline;
+}
