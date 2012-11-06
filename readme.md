@@ -2,18 +2,18 @@
 
 Features
 - Unlimited nesting depth
+- Arbitrary number of nested lists per page
 - Change events for setting list titles or similar
-- Arbitrary number of nested lists per page possible
-- HTML fallback options with deactivated javascript
 - Compatible with Firefox, Chrome, Internet Exploder, Opera, Safari, and more
 
 Additional features
-- All cards have the same width
-- At the moment, child lists can not be shared between list items
-- Height is dynamic
-- It is possible to create a horizontal list by disabling the animation and setting a width for <li>
-- Shows first list on load
 - The up-link (anything with class ".nestedlist-up") can be anywhere on the page
+- All cards have the same width
+- Height is dynamic
+- Shows first list on load
+- HTML fallback with deactivated javascript possible
+- At the moment, child lists can not be shared between list items
+- It is possible to create a horizontal list by disabling the animation and setting a width for <li>
 
 # Usage
 Call "nestedList" on a jQuery object with the topmost <ul> element of the list.
