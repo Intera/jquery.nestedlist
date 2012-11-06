@@ -1,4 +1,4 @@
-# A simple nested list with jQuery
+# Creates a browsable nested list.
 
 Features
 - Unlimited nesting depth
