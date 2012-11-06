@@ -13,12 +13,15 @@ Additional features
 - Shows first list on load
 - HTML fallback with deactivated javascript possible
 - At the moment, child lists can not be shared between list items
-- It is possible to create a horizontal list by disabling the animation and setting a width for <li>
+- It is possible to create a horizontal list by disabling the animation and setting a width for ``<li>``
+
+# Dependencies
+- jQuery
 
 # Usage
-Call "nestedList" on a jQuery object with the topmost <ul> element of the list.
+Call "nestedList" on a jQuery object with the topmost ``<ul>`` element of the list.
 
-  $("ul.demo-list").nestedList()
+    $("ul.demo-list").nestedList()
 
 # Optional configuration
 ```
