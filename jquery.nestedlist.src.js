@@ -1,4 +1,4 @@
-/* jquery.nestedlist.src.js 2012-11-6 | https://github.com/jkalbhenn/jquery.nestedlist */
+/* jquery.nestedlist.src.js 2012-11-6 | https://github.com/Intera/jquery.nestedlist */
 jQuery.fn.shift = function (width, onComplete) {
 	//shift\move selected elements horizontally
 	var left = parseInt(this.css("left"))
