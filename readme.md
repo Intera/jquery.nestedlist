@@ -1,4 +1,5 @@
-# Creates a browsable nested list.
+# jquery.nestedlist
+Creates a browsable nested list.
 
 Features
 - Unlimited nesting depth
