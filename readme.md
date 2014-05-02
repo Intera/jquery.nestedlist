@@ -33,8 +33,12 @@ $(selector).nestedList({
 
 |optionName|optionValue|
 ----|----
-|onBeforeChange|function(-1 or 1, nextList)|
-|onAfterChange|function(-1 or 1, nextList)|
+|onBeforeChange||function(-1 or 1, nextList)|
+|onAfterChange||function(-1 or 1, nextList)|
+|upButtonSelector|for selecting the upButton anywhere in the document|string|
+|upButtonShow|the default is function(upButton, nextList) { nextList.prepend(upButton) }|function(upButton, nextList)|
+|shiftAnimation|options for jQuery.animate()|object|
+|noScriptLinks|true or a selector relative to the nestedlist container to select links that should be replaced with their content text|boolean, string|
 
 # Example DOM structure
 ```
