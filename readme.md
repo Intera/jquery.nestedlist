@@ -31,7 +31,7 @@ $(selector).nestedList({
 })
 ```
 
-|optionName|optionValue|
+|optionName|description|optionValue|
 ----|----|----
 |onBeforeChange|called before showing a list|function(-1 or 1, nextList)|
 |onAfterChange|called after showing a list|function(-1 or 1, nextList)|
