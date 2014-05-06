@@ -33,8 +33,8 @@ $(selector).nestedList({
 
 |optionName|description|optionValue|
 ----|----|----
-|onBeforeChange|called before showing a list|function(-1 or 1, nextList)|
-|onAfterChange|called after showing a list|function(-1 or 1, nextList)|
+|onBeforeChange|called before showing a list|function(-1 or 1, nextList, nestedList)|
+|onAfterChange|called after showing a list|function(-1 or 1, nextList, nestedList)|
 |upButtonSelector|for selecting the upButton anywhere in the document|string|
 |upButtonShow|the default is function(upButton, nextList) { nextList.prepend(upButton) }|function(upButton, nextList)|
 |shiftAnimation|options for jQuery.animate()|object|

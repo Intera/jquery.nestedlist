@@ -102,7 +102,7 @@ jQuery.fn.nestedList = function(config) {
 		function openList(container, li) {
 			// take a <li> and open its child list if it has one
 			nextList = li.children("ul")
-			onBeforeChange(1, nextList)
+			onBeforeChange(1, nextList, container)
 			setActive(li)
 			if(nextList.length) {
 				nextList.show()
@@ -118,7 +118,7 @@ jQuery.fn.nestedList = function(config) {
 				upButtonDisableClick()
 				shiftAnimation.complete = function() {
 					upButton.click(upButtonClick)
-					onAfterChange(1, nextList)
+					onAfterChange(1, nextList, container)
 				}
 				container.shift(-cardWidth, shiftAnimation)
 				updateHeight(container, nextList)
@@ -131,7 +131,7 @@ jQuery.fn.nestedList = function(config) {
 			if(activeItem) {
 				var prevList = li.children("ul")
 				var nextList = li.parent("ul")
-				onBeforeChange(-1, nextList)
+				onBeforeChange(-1, nextList, container)
 				li.siblings().show()
 				if(nextList.hasClass(toplevelClass)) {
 					activeItem = false
@@ -144,7 +144,7 @@ jQuery.fn.nestedList = function(config) {
 				shiftAnimation.complete = function() {
 					upButton.click(upButtonClick)
 					prevList.hide()
-					onAfterChange(-1, nextList)
+					onAfterChange(-1, nextList, container)
 				}
 				container.shift(cardWidth, shiftAnimation)
 			}
