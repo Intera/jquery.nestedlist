@@ -88,7 +88,8 @@ jQuery.fn.nestedList = function(config) {
 			upButtonShow: function(upButton, nextList) { nextList.prepend(upButton) },
 			onBeforeChange: function() {},
 			onAfterChange: function() {},
-			shiftAnimation: {}
+			shiftAnimation: {},
+			noScriptLinks: false
 		}
 		config = (typeof config == "object") ? $.extend(configDefaults, config) : configDefaults
 
@@ -181,7 +182,7 @@ jQuery.fn.nestedList = function(config) {
 						 function(e) { $(this).removeClass("hover"); e.stopPropagation() })
 			.click(listItemClick)
 
-		if (config && config.noScriptLinks) {
+		if(config.noScriptLinks) {
 			removeTopLevelFallbackHyperlinks(container, (typeof config.noScriptLinks === "string") && config.noScriptLinks)
 		}
 		linkWholeContainerForLeafItems(container, config && config.leafItemLink)
