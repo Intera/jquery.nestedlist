@@ -43,23 +43,6 @@ jQuery.fn.nestedList = function(config) {
 		}
 	})()
 
-	function updateHeight(container, ul) {
-		// li = all li of a list
-		// resize nestedList container on displayed content change
-		// if the number of displayed list items changes, the nestedList container otherwise would not resize automatically
-		var child = ul.children()
-		// height of <li> elements
-		var li = child.filter("li")
-		var liHeight = li.eq(0).outerHeight()
-		var liCount = li.length
-		var nextHeight = liCount * liHeight
-
-		// animate problems in FF - container shown empty\white while animating, IE - container is empty\white and never shows again
-		// container.animate({ height: nextHeight }, { duration: 500 })
-		container.height(nextHeight)
-		return li
-	}
-
 	function nestedListOne(container) {
 		// class for the topmost list. prevents going upwards when on the root list
 		var toplevelClass = createClass()
@@ -68,13 +51,31 @@ jQuery.fn.nestedList = function(config) {
 		// the currently activated list element
 		var activeItem = false
 
+		function updateHeight(nextList, ul) {
+			// li = all li of a list
+			var child = ul.children()
+			// height of <li> elements
+			var li = child.filter("li")
+			var nextHeight = 0
+			for(i=0; i<li.length; i+=1) { nextHeight += li.outerHeight() }
+
+			// animate problems in FF - container shown empty\white while animating, IE - container is empty\white and never shows again
+			// container.animate({ height: nextHeight }, { duration: 500 })
+
+			// resize the nestedList container because wrapping containers only respect the height of the first-child <ul> and not the nested <ul>
+			container.height(nextHeight)
+			return li
+		}
+
 		// the upButton is one container that is moved around and inserted when and where it is needed
 		var upButton
-		if(config && config.upButtonSelector) upButton = $(config.upButtonSelector)
+		if(config && config.upButtonSelector) {
+			upButton = (typeof upButton == "string") ? $(config.upButtonSelector) : config.upButtonSelector
+		}
 		else {
 			upButton = container.nextAll(".nestedlist-up")
 			if(upButton.length == 1) upButton.remove()
-			else upButton = $("<div><div>back</div></div>").addClass("nestedlist-up")
+			else upButton = $("<li>back</li>").addClass("nestedlist-up")
 		}
 
 		function upButtonClick(e) {
@@ -83,11 +84,15 @@ jQuery.fn.nestedList = function(config) {
 			return false
 		}
 
-		var upButtonShow = (config && config.upButtonShow) || function(upButton, nextList) { nextList.prepend(upButton) }
-		var cardWidth = container.children("li:first").width() + 20
-		var onBeforeChange = (config && config.onBeforeChange) || function() {}
-		var onAfterChange = (config && config.onAfterChange) || function() {}
-		var shiftAnimation = config.shiftAnimation || {}
+		var configDefaults = {
+			upButtonShow: function(upButton, nextList) { nextList.prepend(upButton) },
+			onBeforeChange: function() {},
+			onAfterChange: function() {},
+			shiftAnimation: {}
+		}
+		config = (typeof config == "object") ? $.extend(configDefaults, config) : configDefaults
+
+		var cardWidth = container.children("li:first").outerWidth()
 
 		function upButtonDisableClick() {
 			upButton.off("click", upButtonClick)
@@ -102,25 +107,25 @@ jQuery.fn.nestedList = function(config) {
 		function openList(container, li) {
 			// take a <li> and open its child list if it has one
 			nextList = li.children("ul")
-			onBeforeChange(1, nextList, container)
+			config.onBeforeChange(1, nextList, container)
 			setActive(li)
 			if(nextList.length) {
 				nextList.show()
-				upButtonShow(upButton, nextList)
+				config.upButtonShow(upButton, nextList)
 				var prevListItems = li.siblings()
 				var nextListItems = nextList.find("li")
-				// reduce size of prev list before cardswitch if the next list has a smaller size.
-				// this makes the animation look smoother - imagine a dynamically sizing box around the nested lists.
+				// reduce size of previous list before cardswitch if the next list has a smaller size.
+				// otherwise the height height changes after the card have switched.
 				// +1 is for the currently active <li> - we do not include it in prevListItems because we would not want to hide it.
 				if((prevListItems.length + 1) > nextListItems.length) {
 					prevListItems.slice(-0, prevListItems.length - nextListItems.length).hide()
 				}
 				upButtonDisableClick()
-				shiftAnimation.complete = function() {
+				config.shiftAnimation.complete = function() {
 					upButton.click(upButtonClick)
-					onAfterChange(1, nextList, container)
+					config.onAfterChange(1, nextList, container)
 				}
-				container.shift(-cardWidth, shiftAnimation)
+				container.shift(-cardWidth, config.shiftAnimation)
 				updateHeight(container, nextList)
 			}
 		}
@@ -131,22 +136,22 @@ jQuery.fn.nestedList = function(config) {
 			if(activeItem) {
 				var prevList = li.children("ul")
 				var nextList = li.parent("ul")
-				onBeforeChange(-1, nextList, container)
+				config.onBeforeChange(-1, nextList, container)
 				li.siblings().show()
 				if(nextList.hasClass(toplevelClass)) {
 					activeItem = false
 				} else {
-					upButtonShow(upButton, nextList)
+					config.upButtonShow(upButton, nextList)
 					setActive(nextList.parent("li"))
 				}
 				updateHeight(container, nextList)
 				upButtonDisableClick()
-				shiftAnimation.complete = function() {
+				config.shiftAnimation.complete = function() {
 					upButton.click(upButtonClick)
 					prevList.hide()
-					onAfterChange(-1, nextList, container)
+					config.onAfterChange(-1, nextList, container)
 				}
-				container.shift(cardWidth, shiftAnimation)
+				container.shift(cardWidth, config.shiftAnimation)
 			}
 		}
 
@@ -176,10 +181,10 @@ jQuery.fn.nestedList = function(config) {
 						 function(e) { $(this).removeClass("hover"); e.stopPropagation() })
 			.click(listItemClick)
 
-		if (config.noScriptLinks) {
+		if (config && config.noScriptLinks) {
 			removeTopLevelFallbackHyperlinks(container, (typeof config.noScriptLinks === "string") && config.noScriptLinks)
 		}
-		linkWholeContainerForLeafItems(container, config.leafItemLink)
+		linkWholeContainerForLeafItems(container, config && config.leafItemLink)
 	}
 
 	// initialise all nestedlists

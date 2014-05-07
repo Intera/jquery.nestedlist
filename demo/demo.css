@@ -1,7 +1,6 @@
 /* example of extra properties that can be styled */
 .wrapper {
 	border: 1px solid #000;
-	width: 160px;
 	overflow: hidden;
 	float: left;
 }
@@ -11,7 +10,6 @@
 }
 
 .demo-list, ul {
-	width: 160px;
 	padding-left: 0;
 }
 
