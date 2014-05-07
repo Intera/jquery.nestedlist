@@ -1,4 +1,4 @@
-// jquery.nestedlist.src.js 2014-4-22 | https://github.com/Intera/jquery.nestedlist
+// jquery.nestedlist.src.js 2014-5-7 | https://github.com/Intera/jquery.nestedlist
 
 jQuery.fn.shift = function(width, config) {
 	// shift\move selected elements horizontally
@@ -67,7 +67,7 @@ jQuery.fn.nestedList = function(config) {
 			return li
 		}
 
-		// the upButton is one container that is moved around and inserted when and where it is needed
+		// the upButton is one container that is moved around and inserted into an <li> when and where it is needed
 		var upButton
 		if(config && config.upButtonSelector) {
 			upButton = (typeof upButton == "string") ? $(config.upButtonSelector) : config.upButtonSelector
