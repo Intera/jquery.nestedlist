@@ -27,8 +27,7 @@ jQuery.fn.nestedList = function(config) {
 		// link whole container area for hyperlinks in leaf items
 		container.find(linkSelector || ".leaf a:first-of-type").each(function () {
 			var hlink = $(this)
-			// 'parent.parent' is the <li>
-			hlink.parent().parent().click(function () {
+			hlink.parents(".leaf:first()").click(function () {
 				document.location.href = hlink.attr('href')
 				return false
 			}).css('cursor', 'pointer')
@@ -62,7 +61,7 @@ jQuery.fn.nestedList = function(config) {
 			// animate problems in FF - container shown empty\white while animating, IE - container is empty\white and never shows again
 			// container.animate({ height: nextHeight }, { duration: 500 })
 
-			// resize the nestedList container because wrapping containers only respect the height of the first-child <ul> and not the nested <ul>
+			// resize the nestedList container because enclosing containers only scale to the height of the nestedlist root-<ul> and not the nested sublist-<ul>
 			container.height(nextHeight)
 			return li
 		}
@@ -89,14 +88,16 @@ jQuery.fn.nestedList = function(config) {
 			onBeforeChange: function() {},
 			onAfterChange: function() {},
 			shiftAnimation: {},
-			noScriptLinks: false
+			noScriptLinks: false,
+			linkListItems: true
 		}
 		config = (typeof config == "object") ? $.extend(configDefaults, config) : configDefaults
 
-		var cardWidth = container.children("li:first").outerWidth()
+		var cardWidth = container.outerWidth()
 
 		function upButtonDisableClick() {
 			upButton.off("click", upButtonClick)
+			// prevent default handling and stop event propagation
 			upButton.click(returnFalse)
 		}
 
@@ -161,7 +162,8 @@ jQuery.fn.nestedList = function(config) {
 			// prevent repeated clicks on the same list item or leaf item. leaf items are handled by another function
 			if(container.is(":animated")) return false
 			openList(container, li)
-			// important because containers with this click event handler may be nested - the event would bubble up and would be created multiple times
+			// important because containers with this click event handler may be nested -
+			// the event would bubble up and would be created multiple times
 			event.stopPropagation()
 		}
 
@@ -174,8 +176,11 @@ jQuery.fn.nestedList = function(config) {
 		}).hide()
 
 		// add leaf class
-		container.find("li:not(:has(ul))").addClass("leaf")
-		// extra hover class because of list elements nested in list elements
+		container.find("li:not(:has(ul))").addClass("leaf").click(function (event) {
+			event.stopPropagation()
+		})
+
+		// extra hover class because of list elements nested in list elements.
 		// click events for all list elements with sublists
 		container.find("li:not(.leaf)")
 			.hover(function(e) { $(this).addClass("hover"); e.stopPropagation() },
@@ -185,7 +190,9 @@ jQuery.fn.nestedList = function(config) {
 		if(config.noScriptLinks) {
 			removeTopLevelFallbackHyperlinks(container, (typeof config.noScriptLinks === "string") && config.noScriptLinks)
 		}
-		linkWholeContainerForLeafItems(container, config && config.leafItemLink)
+		if(config.linkListItems) {
+			linkWholeContainerForLeafItems(container, config && config.leafItemLink)
+		}
 	}
 
 	// initialise all nestedlists
