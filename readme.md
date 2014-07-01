@@ -55,17 +55,18 @@ ul
 
 See demo/demo.css for an example stylesheet
 
-# methods and objects
+# Methods and objects
 ## nestedListsObject
 $.nestedList returns a nestedListsObject
-### example
+### Example
     var nestedLists = jQuery(".demo-list").nestedList()
-### content
+### Content
     {
       nestedLists: [nestedListObject, ...],
       closeAll: closeAll
     }
-### methods
+### Methods
+----|----|----
 |closeAll()|closes all open sub-lists and shows the toplevel/first list|
 ## nestedListObject
     {
@@ -73,5 +74,7 @@ $.nestedList returns a nestedListsObject
       toplevelClass: toplevelClass,
       closeList: closeList
     }
-### methods
+### Methods
+|name|description|
+----|----|----
 |closeList()|close the currently active sub-list and show its parent list|
