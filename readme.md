@@ -48,47 +48,30 @@ ul
   li
     content
     ul
-	    li
-	    li
-	    li
+      li
+      li
+      li
 ```
 
-# Example of extra properties that can be styled
-```css
-.wrapper {
-	border: 1px solid #000;
-	width: 160px;
-	overflow: hidden;
-	float: left;
-}
+See demo/demo.css for an example stylesheet
 
-.wrapper + .wrapper {
-	margin-left: 10%;
-}
-
-.demo-list, ul {
-	width: 160px;
-	padding-left: 0;
-}
-
-.leaf {
-	background-color: #eee;
-}
-
-.hover {
-	text-decoration: underline;
-}
-
-li {
-	list-style-type: none;
-	width: 144px;
-}
-
-.nestedlist-up, li {
-	cursor: pointer;
-}
-
-.nestedlist-up:hover {
-	text-decoration: underline;
-}
-```
+# methods and objects
+## nestedListsObject
+$.nestedList returns a nestedListsObject
+### example
+    var nestedLists = jQuery(".demo-list").nestedList()
+### content
+    {
+      nestedLists: [nestedListObject, ...],
+      closeAll: closeAll
+    }
+### methods
+|closeAll()|closes all open sub-lists and shows the toplevel/first list|
+## nestedListObject
+    {
+      container: container,
+      toplevelClass: toplevelClass,
+      closeList: closeList
+    }
+### methods
+|closeList()|close the currently active sub-list and show its parent list|
