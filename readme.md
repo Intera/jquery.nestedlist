@@ -66,6 +66,7 @@ $.nestedList returns a nestedListsObject
       closeAll: closeAll
     }
 ### Methods
+|name|description|
 ----|----|----
 |closeAll()|closes all open sub-lists and shows the toplevel/first list|
 ## nestedListObject
