@@ -56,7 +56,7 @@ jQuery.fn.nestedList = function(config) {
 			// height of <li> elements
 			var li = child.filter("li")
 			var nextHeight = 0
-			for(i=0; i<li.length; i+=1) { nextHeight += li.outerHeight() }
+			for(var i=0; i<li.length; i+=1) { nextHeight += li.eq(i).outerHeight() }
 
 			// animate problems in FF - container shown empty\white while animating, IE - container is empty\white and never shows again
 			// container.animate({ height: nextHeight }, { duration: 500 })
@@ -66,10 +66,12 @@ jQuery.fn.nestedList = function(config) {
 			return li
 		}
 
-		// the upButton is one container that is moved around and inserted into an <li> when and where it is needed
+		// the upButton is one container that by default is moved around and inserted into the active <li> where needed, but if the upButtonSelector and upButtonShow options are specified,
+		// then the upButton can be anywhere stationary
 		var upButton
 		if(config && config.upButtonSelector) {
-			upButton = (typeof upButton == "string") ? $(config.upButtonSelector) : config.upButtonSelector
+			upButton = (typeof config.upButtonSelector == "string") ? container.nextAll(config.upButtonSelector) : config.upButtonSelector
+			upButton.hide()
 		}
 		else {
 			upButton = container.nextAll(".nestedlist-up")
@@ -142,6 +144,7 @@ jQuery.fn.nestedList = function(config) {
 				activeItem.siblings().show()
 				if(nextList.hasClass(toplevelClass)) {
 					setActive(false)
+					upButton.hide()
 				} else {
 					config.upButtonShow(upButton, nextList)
 					setActive(nextList.parent("li"))
@@ -168,7 +171,7 @@ jQuery.fn.nestedList = function(config) {
 		function listItemClick(event) {
 			var li = $(this)
 			// prevent repeated clicks on the same list item or leaf item. leaf items are handled by another function
-			if(container.is(":animated")) return false
+			if(li.hasClass("active") || container.is(":animated")) return false
 			openList(li)
 			// important because containers with this click event handler may be nested -
 			// the event would bubble up and would be created multiple times
