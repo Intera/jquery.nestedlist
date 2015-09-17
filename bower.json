@@ -1,0 +1,23 @@
+{
+  "name": "jquery-nestedlist",
+  "main": "jquery.nestedlist.js",
+  "homepage": "https://github.com/Intera/jquery.nestedlist",
+  "authors": [
+    "Julian Kalbhenn <jkalbhenn@intera.de>"
+  ],
+  "description": "jQuery plugin for creating a browsable nested list.",
+  "keywords": [
+    "jquery",
+    "list",
+    "nested",
+    "nesting"
+  ],
+  "license": "GPL3+",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
