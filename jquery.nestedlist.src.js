@@ -4,7 +4,7 @@ jQuery.fn.shift = function(width, config) {
 	// shift\move selected elements horizontally
 	var left = parseInt(this.css("left"));
 	var widthNext = isNaN(left) ? width : left + width;
-  config ? this.animate({ left: widthNext }, config) : this.css({ left: widthNext })
+	config ? this.animate({left: widthNext}, config) : this.css({left: widthNext})
 };
 
 jQuery.fn.nestedList = function(config) {
@@ -208,8 +208,8 @@ jQuery.fn.nestedList = function(config) {
 		return {
 			container: container,
 			toplevelClass: toplevelClass,
-      closeList: closeList,
-      openList: openList
+			closeList: closeList,
+			openList: openList
 		}
 	}
 
@@ -220,7 +220,7 @@ jQuery.fn.nestedList = function(config) {
 		for(var i=0; i<nestedLists.length; i+=1) { while(nestedLists[i].closeList(true)) {} }
 	}
 
-  return {
+	return {
 		nestedLists: nestedLists,
 		closeAll: closeAll
 	}
