@@ -26,11 +26,11 @@ jQuery.fn.nestedList = function(config) {
 	function linkWholeContainerForLeafItems(container, linkSelector) {
 		// link whole container area for hyperlinks in leaf items
 		container.find(linkSelector || ".leaf a:first-of-type").each(function () {
-			//var hlink = $(this);
-			//hlink.parents(".leaf:first()").click(function () {
-			//	document.location.href = hlink.attr('href');
-			//	return false
-			//}).css('cursor', 'pointer')
+			var hlink = $(this);
+			hlink.parents(".leaf:first").click(function () {
+				document.location.href = hlink.attr('href');
+				return false
+			}).css('cursor', 'pointer')
 		});
 	}
 
