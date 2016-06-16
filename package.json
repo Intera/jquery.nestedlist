@@ -1,23 +1,25 @@
 {
-	"name": "jquery-nestedlist",
-	"description": "jQuery plugin for creating a browsable nested list.",
-	"homepage": "https://github.com/Intera/jquery.nestedlist",
-	"author": "Intera GmbH",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/Intera/jquery.nestedlist.git"
-	},
-	"bugs": {
-		"url": "https://github.com/Intera/jquery.nestedlist/issues"
-	},
-	"license": "GPL3+",
-	"devDependencies": {
-		"grunt": "~0.4.5",
-		"grunt-contrib-uglify": "~0.9.1"
-	},
-	"files": [
-		"*.js",
-		"Gruntfile.js",
-		"readme.md"
-	]
+  "name": "jquery.nestedlist",
+  "version": "1.0.0",
+  "license": "GPL-3.0+",
+  "description": "Creates a browsable nested list from an unordered HTML list",
+  "homepage": "https://github.com/Intera/jquery.nestedlist",
+  "bugs": {
+    "url" : "https://github.com/Intera/jquery.nestedlist/issues",
+    "email" : "jkalbhenn@intera.de"
+  },
+  "repository": {
+    "type": "git",
+    "url" : "https://github.com/Intera/jquery.nestedlist"
+  },
+  "keywords": ["jquery-plugin", "ecosystem:jquery", "nested-list"],
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-uglify": "~0.9.1"
+  },
+  "files": [
+    "*.js",
+    "Gruntfile.js",
+    "readme.md"
+  ]
 }
